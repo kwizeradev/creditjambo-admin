@@ -10,6 +10,7 @@ const LOGIN_ROUTE = '/login';
 const REFRESH_ENDPOINT = '/admin/auth/refresh';
 const LOGIN_ENDPOINT = '/admin/auth/login';
 const HTTP_UNAUTHORIZED = 401;
+const HTTP_TOO_MANY_REQUESTS = 429;
 
 const api = axios.create({
   baseURL: config.apiUrl,
@@ -130,9 +131,27 @@ const extractErrorMessages = (errors: Array<{ field?: string; message: string }>
   return errors.map(error => error.message).join(', ');
 };
 
+const formatRetryAfterMessage = (retryAfter: string | number): string => {
+  const seconds = typeof retryAfter === 'string' ? parseInt(retryAfter) : retryAfter;
+  const minutes = Math.ceil(seconds / 60);
+  
+  if (minutes > 1) {
+    return `Too many requests. Please wait ${minutes} minutes before trying again.`;
+  }
+  return `Too many requests. Please wait ${seconds} seconds before trying again.`;
+};
+
 const parseApiError = (error: AxiosError<ApiError>): string => {
   if (!error.response) {
     return NETWORK_ERROR_MESSAGE;
+  }
+
+  if (error.response.status === HTTP_TOO_MANY_REQUESTS) {
+    const retryAfter = error.response.headers['retry-after'];
+    if (retryAfter) {
+      return formatRetryAfterMessage(retryAfter);
+    }
+    return 'Too many requests. Please wait a moment and try again.';
   }
 
   const apiError = error.response.data;

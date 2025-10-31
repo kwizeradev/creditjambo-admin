@@ -112,7 +112,7 @@ export function Login() {
         </div>
 
         <p className="text-center text-xs text-gray-500 dark:text-gray-600 mt-6">
-          © 2024 CreditJambo. All rights reserved.
+          © 2025 CreditJambo. All rights reserved.
         </p>
       </div>
     </div>

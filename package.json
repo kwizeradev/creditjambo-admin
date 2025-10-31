@@ -1,0 +1,29 @@
+{
+  "name": "creditjambo-admin",
+  "version": "1.0.0",
+  "description": "Admin dashboard for Credit Jambo system",
+  "main": "index.js",
+  "scripts": {
+    "setup": "ts-node --esm scripts/setup.env.ts",
+    "teardown": "ts-node --esm scripts/teardown.env.ts",
+    "docker:restart": "docker compose restart",
+    "logs": "docker compose logs -f"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwizeradev/creditjambo-admin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/kwizeradev/creditjambo-admin/issues"
+  },
+  "homepage": "https://github.com/kwizeradev/creditjambo-admin#readme",
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

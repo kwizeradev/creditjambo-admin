@@ -58,6 +58,7 @@ export function Transactions() {
     handleTypeFilterChange,
     handleStartDateChange,
     handleEndDateChange,
+    clearFilters,
   } = useTransactions();
 
   const handleUserClick = (userId: string) => {
@@ -71,12 +72,6 @@ export function Transactions() {
 
   const hasNoTransactions = !isLoading && transactions.length === 0;
   const hasActiveFilters = typeFilter !== 'all' || startDate || endDate;
-
-  const clearFilters = () => {
-    handleTypeFilterChange('all');
-    handleStartDateChange('');
-    handleEndDateChange('');
-  };
 
   return (
     <div className="flex flex-col h-full">
